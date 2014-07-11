@@ -81,8 +81,9 @@ withIn(functionDeclaration('feedAllBirds'),
 The AST node matching the `function feedAllBirds()` is matched and passed to `eachOf()`, which then
 calls the two matching expressions given to it.
 
+###Performance
 To avoid parsing the same code repeatedly, the abtract syntax tree can be parsed once, and passed to
-`withIn` or any of its aliases.
+`withIn` or any of its aliases. The entire AST will be still be traversed.
 
 ```javascript
 var code = "myVar = 'test';function() {}",
