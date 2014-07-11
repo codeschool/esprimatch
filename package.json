@@ -1,0 +1,33 @@
+{
+  "name": "esprimatch",
+  "version": "0.0.0",
+  "description": "A collection of predicates for matching an abstract syntax tree (AST).",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec test/tests.js"
+  },
+  "keywords": [
+    "esprima",
+    "estraverse",
+    "ast",
+    "abstract",
+    "syntax",
+    "tree",
+    "traveral",
+    "matching"
+  ],
+  "author": "Russell Centanni",
+  "license": "MIT",
+  "dependencies": {
+    "esprima": "^1.2.2",
+    "estraverse": "^1.5.1"
+  },
+  "optionalDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.20.1",
+    "sinon": "https://github.com/cjohansen/Sinon.JS/tarball/browserify"
+  }
+}
