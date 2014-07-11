@@ -13,8 +13,10 @@ has(assignment('myVar', 'test', '='), function(node, parent) {
 })(code);
 ```
 
-The `has` function is alias for the entry point method, called `withIn`. `withIn` has several
-aliases to help with readability, depending on what you're matching. For example:
+### Traveral
+In the above example, the `has` call is the start of the traversal. The `has` function is an alias
+for `withIn`. `withIn` has several aliases to help with readability, depending on what you're
+matching. For example:
 
 ```javascript
 var code = "function() {}";
@@ -23,10 +25,11 @@ withIn(functionExpression(), function(node, parent){
 })(code);
 ```
 
-The other predicates shown here are `assignment` and `functionExpression`, each matching their
-respective node types. Some predicates will accept values or other predicates as arguments. For,
-example the `assignment` predicate will accept a left, right, and operator arguments, that match
-against the node's left hand side, right hand side, and operator properties.
+###Predicates
+The other predicates shown in the above example are `assignment` and `functionExpression`, each
+matching their respective node types. Some predicates will accept values or other predicates as
+arguments. For, example the `assignment` predicate will accept a left, right, and operator
+arguments, that match against the node's left hand side, right hand side, and operator properties.
 
 By combining predicates and traversal calls, it's possible to construct a complex expression to find
 a specific node. For example, this will match a `for` statement that contains a method call to
@@ -34,13 +37,18 @@ a specific node. For example, this will match a `for` statement that contains a 
 
 ```javascript
 withIn(forStatement(),
-  withIn(methodCall('pack','feedBird', [memberExpression('duneInhabitants')]), function(node) {
+  having(methodCall('pack','feedBird', [memberExpression('duneInhabitants')]), function(node) {
     // Do something.
   })
 )(ast);
 ```
 
-It is also possible to chain several unrelated calls on a matched node. Given the code:
+Here, the `forStatement` callback is another `withIn` call that is invoked with the matched
+'ForStatement' node. This then traverses that node looking for a method call to `pack.feedBird()`
+with the argument `duneInhabitants`.
+
+### Grouping Predicates
+It is also possible to group several unrelated calls on a matched node. Given the code:
 
 ```javascript
 function feedAllBirds() {
@@ -53,10 +61,6 @@ function feedAllBirds() {
   }
 }
 ```
-
-Here, the `forStatement` callback is another `withIn` call that is invoked with the matched
-'ForStatement' node. This then traverses that node looking for a method call to `pack.feedBird()`
-with the argument `duneInhabitants`.
 
 `eachOf` allows for calling multiple matching statements with a matched node. For example:
 ```javascript
