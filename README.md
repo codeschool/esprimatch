@@ -100,7 +100,7 @@ withIn(functionExpression(), function(node, parent){
 
 ## Local Development
 To set up for local development, follow these steps:
-1. Clone this repository.
-2. Run `npm install`.
-3. Make changes, adding unit tests to /tests.
-4. Run `npm test` to see if you broke anything.
+ 1. Clone this repository.
+ 2. Run `npm install`.
+ 3. Make changes, adding unit tests to /tests.
+ 4. Run `npm test` to see if you broke anything.
