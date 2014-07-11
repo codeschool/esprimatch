@@ -40,12 +40,45 @@ withIn(forStatement(),
 )(ast);
 ```
 
+It is also possible to chain several unrelated calls on a matched node. Given the code:
+
+```javascript
+function feedAllBirds() {
+  // array of all the inhabitants
+  var duneInhabitants = [numba, loopy, tryCatcher];
+  
+  // loop through duneInhabitants and if Bird call feedBird()
+  for (var i = 0; i < duneInhabitants.length; i++) {
+    pack.feedBird(duneInhabitants[i]);
+  }
+}
+```
+
 Here, the `forStatement` callback is another `withIn` call that is invoked with the matched
 'ForStatement' node. This then traverses that node looking for a method call to `pack.feedBird()`
 with the argument `duneInhabitants`.
 
+`eachOf` allows for calling multiple matching statements with a matched node. For example:
+```javascript
+withIn(functionDeclaration('feedAllBirds'),
+  eachOf(
+    having(variableDeclaration('dunInhabitants'), function(node, parent) {
+      // Do something.
+    }),
+    withIn(forStatement(),
+      having(methodCall('pack','feedBird', [memberExpression('duneInhabitants', identifier('i'))]), function(node) {
+        // Do something.
+      }),
+    )
+  )
+);
+```
+
+The AST node matching the `function feedAllBirds()` is matched and passed to `eachOf()`, which then
+calls the two matching expressions given to it.
+
 To avoid parsing the same code repeatedly, the abtract syntax tree can be parsed once, and passed to
-`withIn` or any of its aliases. The AST will be traversed multiple times.
+`withIn` or any of its aliases.
 
 ```javascript
 var code = "myVar = 'test';function() {}",
