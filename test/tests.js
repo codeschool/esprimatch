@@ -1,4 +1,15 @@
-var withIn = require('./withIn.js'),
-    literal = require('./literal.js'),
-    identifier = require('./identifier.js'),
-    assignment = require('./assignment.js');
+var esprimatch = require('../lib/index.js'),
+    assert = require('chai').assert;
+    sinon = require('sinon');
+
+describe('esprimatch', function() {
+
+  require('./any.js');
+  require('./allOf.js');
+  require('./withIn.js');
+  require('./literal.js');
+  require('./identifier.js');
+  require('./assignment.js');
+  require('./matches.js');
+
+});
