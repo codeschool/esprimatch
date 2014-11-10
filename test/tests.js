@@ -11,5 +11,6 @@ describe('esprimatch', function() {
   require('./identifier.js');
   require('./assignment.js');
   require('./matches.js');
+  require('./methodCall.js');
 
 });

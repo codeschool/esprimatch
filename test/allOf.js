@@ -3,41 +3,45 @@ var assert = require('chai').assert,
     esprimatch = require('../lib/index.js'),
     withIn = esprimatch.withIn,
     allOf = esprimatch.allOf
-    literal = esprimatch.literal;
+    literal = esprimatch.literal,
+    matches = esprimatch.matches;
 
-describe('allOf', function() {
-  var code = '3;4;5;6;7;';
+describe.skip('allOf', function() {
+  var code = '3;4;5;6;7;',
+      ast = esprima.parse(code);
 
   it ('matches all predicates', function() {
-    assert(withIn(allOf(
-      literal(3),
-      literal(4),
-      literal(5),
-      literal(6),
-      literal(7)
-    )));
+    assert(allOf(
+      matches(literal(3)),
+      matches(literal(4)),
+      matches(literal(5)),
+      matches(literal(6)),
+      matches(literal(7))
+    )(ast));
   });
 
   it ('does not match all predicates', function() {
-    assert(!withIn(allOf(
+    assert(!allOf(
       literal(3),
       literal(4),
       literal(5),
       literal(6),
       literal(8)
-    )));
+    )(code));
   });
 
-  it ('matches all predicates despite errors', function() {
-    assert.throws(withIn(allOf(
-      literal(3),
-      literal(4),
-      function() {
-        throw Error('Ha ha! You fail!')
-      },
-      literal(6),
-      literal(7)
-    )), 'Ha ha! You fail!');
+  it ('matches all with predicate errors', function() {
+    assert.throws(function() {
+      allOf(
+        literal(3),
+        literal(4),
+        function() {
+          throw Error('Ha ha! You fail!')
+        },
+        literal(6),
+        literal(7)
+      )(code);
+    }, 'Ha ha! You fail!');
   });
 
 });

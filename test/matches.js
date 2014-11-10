@@ -9,15 +9,15 @@ describe('matches', function() {
       ast = esprima.parse(code);
 
   it ('returns true when match', function() {
-    assert(matches(ast, identifier('myVar')));
+    assert(matches(identifier('myVar')(ast)));
   });
 
   it ('returns false when no match', function() {
-    assert(!matches(ast, identifier('yourVar')));
+    assert(!matches(identifier('yourVar'))(ast));
   });
 
   it ('returns false when node type does not exist', function() {
-    assert(!matches('1+1', identifier('myVar')));
+    assert(!matches(identifier('test'))(ast));
   });
 
 });
