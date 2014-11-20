@@ -12,5 +12,7 @@ describe('esprimatch', function() {
   require('./assignment.js');
   require('./matches.js');
   require('./methodCall.js');
+  require('./sameCode.js');
+  require('./or.js');
 
 });

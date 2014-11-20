@@ -1,5 +1,6 @@
 var esprima = require('esprima'),
-    withIn = require('../lib/index.js').withIn,
+    esprimatch = require('../lib/index.js'),
+    withIn = esprimatch.withIn,
     assert = require('chai').assert,
     sinon = require('sinon');
 
@@ -77,6 +78,12 @@ describe("withIn", function() {
     )("var test = 'test';");
     
     assert(!traversed);
+  });
+
+  it ('has aliases has, having, & withArg', function() {
+    assert(withIn === esprimatch.has);
+    assert(withIn === esprimatch.having);
+    assert(withIn === esprimatch.withArg);
   });
 
 });
